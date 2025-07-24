@@ -10,13 +10,18 @@ type TRegister = {
     confirmPassword: string;
 };
 
+type TLogin = {
+    identifier: string;
+    password: string;
+};
+
 const registerValidationSchema = yup.object().shape({
     fullName: yup.string().required(),
     username: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
     confirmPassword: yup.string().min(6).required().oneOf([yup.ref('password'), ""], 'Passwords must match'),
-})
+});
 
 export default {
     async register(req: Request, res: Response) {
@@ -56,4 +61,47 @@ export default {
             });
         }
     }, 
+    async login(req: Request, res: Response) {
+        const {identifier, password} = req.body as unknown as TLogin;
+        try {
+            const userByIdentifier = await UserModel.findOne({
+                $or: [
+                    {
+                        email: identifier,
+                    },
+                    {
+                        username: identifier,
+                    },
+                ],
+            });
+
+            if(!userByIdentifier){
+                return res.status(403).json({
+                    message: "user not found",
+                    data: null
+                });
+            }
+
+            const validatePassword: boolean = encrypt(password) === userByIdentifier.password;
+
+            if(!validatePassword){
+                return res.status(403).json({
+                    message: "user not found",
+                    data: null
+                });
+            }
+
+            return.res.status(200).json({
+                message: "Success login user",
+                data: userByIdentifier,
+            });
+
+        } catch (error) {
+            const err = error as unknown as Error;
+            res.status(400).json({
+                message: err.message,
+                data: null,
+            });
+        }
+    },
 };
