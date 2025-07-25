@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 import UserModel from '../models/user.model';
+import { encrypt } from '../utils/encryption';
 
 type TRegister = {
     fullName: string;
@@ -15,7 +16,7 @@ type TLogin = {
     password: string;
 };
 
-const registerValidationSchema = yup.object().shape({
+const registerValidationSchema = yup.object({
     fullName: yup.string().required(),
     username: yup.string().required(),
     email: yup.string().email().required(),
@@ -44,8 +45,8 @@ export default {
 
             const result = await UserModel.create({
                 fullName,
-                username,
                 email,
+                username,
                 password,
             });
 
@@ -91,7 +92,7 @@ export default {
                 });
             }
 
-            return.res.status(200).json({
+            return res.status(200).json({
                 message: "Success login user",
                 data: userByIdentifier,
             });

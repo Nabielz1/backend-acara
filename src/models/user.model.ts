@@ -38,6 +38,7 @@ const userSchema = new Schema<User>({
     role: {
         type: Schema.Types.String,
         enum: ["admin", "user"],
+        default: "user",
     },
 
     profilePicture: {

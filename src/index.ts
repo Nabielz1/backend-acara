@@ -1,6 +1,6 @@
 import express from 'express';
 import router from "./routes/api";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 import db from "./utils/database";
 
 async function init() {
