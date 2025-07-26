@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acara - Activation User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2px auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #555555;
+        }
+        .button{
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+            background-color: #4CAF50;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                border-radius: 0;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Selamat Datang!!!!</h1>
+        </div>
+        <div class="content">
+            <p>Halo <%= username %>,</p>
+            <p>Terima kasih telah mendaftar di platform kami. Kami senang Anda bergabung! Berikut adalah informasi akun Anda:</p>
+            <ul>
+                <li><strong>Nama:</strong> <%= fullName %> </li>
+                <li><strong>Email:</strong> <%= email %> </li>
+                <li><strong>Tanggal Pendaftaran:</strong> <%= createdAt %> </li>
+            </ul>
+            <p>Untuk memulai menggunakan platform kami, silakan klik tombol di bawah ini:</p>
+            <a href="<%= activationLink %>" class="button">Aktivasi Akun</a>
+            <p>Jika Anda memiliki pertanyaan atau butuh bantuan, jangan ragu untuk menghubungi tim dukungan kami.</p>
+            <p>Terima kasih telah bergabung dengan kami!</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Acara Management Systems. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
